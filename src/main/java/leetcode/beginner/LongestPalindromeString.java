@@ -6,11 +6,10 @@ import java.util.Set;
 public class LongestPalindromeString {
 
   public static void main(String[] args) {
-
+      longestPalindrome("abcdefrtsywzjklmn");
   }
 
   public static String longestPalindrome(String s) {
-
     int last = s.length();
     int first = 0;
     /*s = s.length() % 2 == 0 ? s + "_" : s;
