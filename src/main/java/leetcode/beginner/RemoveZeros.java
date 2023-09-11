@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class RemoveZeros {
   public static void main(String[] args) {
-    removeZeros(new int[] {1, 0, 0, 0, 0, 7});
+    removeZeros(new int[] {1, 2, 3, 0, 0, 0});
   }
 
   public static void removeZeros(int[] nums) {
