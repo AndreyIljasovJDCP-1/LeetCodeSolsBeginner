@@ -11,7 +11,7 @@ public class AsteroidCollisions {
 
     public static void main(String[] args) {
         System.out.println(Arrays.toString(collision(new int[]{
-                6, 10, -5
+                10,2,-5
         })));
     }
 
@@ -49,6 +49,37 @@ public class AsteroidCollisions {
     }
 
     public static int[] collision(int[] asteroids) {
+        Stack<Integer> stack = new Stack<>();
+        if (asteroids.length < 2) return asteroids;
+
+        for (int direction : asteroids) {
+            if (stack.empty() || direction > 0) {
+                stack.push(direction);
+            } else {
+                while (true) {
+                    int previous = stack.peek();
+                    if (previous < 0) {
+                        stack.push(direction);
+                        break;
+                    } else if (previous == -direction) {
+                        stack.pop();
+                        break;
+                    } else if (previous > -direction) {
+                        break;
+                    } else {
+                        stack.pop();
+                        if (stack.isEmpty()) {
+                            stack.push(direction);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return stack.stream().mapToInt(i -> i).toArray();
+    }
+
+    public static int[] collisionAll(int[] asteroids) {
         Stack<Integer> stack = new Stack<>();
         if (asteroids.length < 2) return asteroids;
 
