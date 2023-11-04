@@ -1,8 +1,11 @@
 package leetcode.medium;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * @link <a href="https://leetcode.com/problems/odd-even-linked-list/?envType=study-plan-v2&envId=leetcode-75">
- *     328. Odd Even Linked List</a>
+ * 328. Odd Even Linked List</a>
  */
 public class ListNodeOddEven {
 
@@ -13,109 +16,58 @@ public class ListNodeOddEven {
                                 new ListNode(4, "4",
                                         new ListNode(5, "5",
                                                 new ListNode(6, "6",
-                                                        // new ListNode(7, "7",
+                                                        //new ListNode(7, "7",
                                                         null))))));
 
         oddEvenList(list1);
     }
 
     public static ListNode oddEvenList(ListNode head) {
-        ListNode preOdd = new ListNode(-1);
-        ListNode preEven = new ListNode(-1);
-
+        ListNode preHead = new ListNode(-1);
+        preHead.next=head;
+        if (head.next == null || head.next.next == null) return head;
         ListNode odd = new ListNode(-1);
         ListNode even = new ListNode(-1);
+        ListNode preOdd = odd;
+        ListNode preEven = even;
 
+        Queue<ListNode> listNodeQueue = new LinkedList<>();
 
-        preOdd.next = odd;
-        preEven.next = even;
-
-        int count = 0;
         while (head != null) {
-
-
-            if (head.next.next == null) {
-                odd.next = head;
-                odd = odd.next;
-                odd.next = null;
-                even.next = head.next;
-                break;
-            }
-
-
-            odd.next = head;
-            odd = odd.next;
-            even.next = head.next;
-            even = even.next;
-            head = head.next.next;
-            count++;
-
-        }
-
-        while (preOdd.next != null) {
-            preOdd = preOdd.next;
-            System.out.println(preOdd.next);
-
-        }
-        System.out.println("even");
-        while (preEven.next != null) {
-            preEven = preEven.next;
-            System.out.println(preEven.next);
-
-        }
-
-        return null;
-    }
-
-    public static ListNode deleteMiddle(ListNode head) {
-        ListNode preHead = new ListNode(-1);
-        preHead.next = head;
-        int length = 0;
-        while (head != null) {
+            listNodeQueue.offer(head);
             head = head.next;
-            length++;
         }
-        System.out.println("length " + length);
-        ListNode preDelete = new ListNode(-1);
-        ListNode delete = preDelete;
-        int middle = ((length & 1) == 0) ? (length + 1) / 2 : length / 2;
-        System.out.println("middle " + middle);
-        while (preHead.next != null) {
-            if (middle == 0) {
-                preHead = preHead.next.next;
+        boolean sizeOdd = (listNodeQueue.size() & 1) == 0;
+        int index = 0;
+        while (!listNodeQueue.isEmpty()) {
+            if ((index & 1) == 0) {
+                odd.next = listNodeQueue.poll();
+                odd = odd.next;
+                if (sizeOdd && odd.next.next == null) odd.next = null;
             } else {
-                preHead = preHead.next;
+                even.next = listNodeQueue.poll();
+                even = even.next;
+                if (!sizeOdd && even.next.next == null) even.next = null;
             }
-            delete.next = preHead;
-            delete = delete.next;
-            middle--;
-            if (preHead == null) break;
+            index++;
         }
 
-        while (preDelete.next != null) {
-            System.out.println(preDelete.next);
-            preDelete = preDelete.next;
+        odd.next = preEven.next;
+        while (preOdd.next != null) {
+            System.out.println(preOdd.next);
+            preOdd = preOdd.next;
         }
-        return head;
-
-    }
-
-    public static ListNode deleteMiddleBest(ListNode head) {
-        ListNode preHead = head;
-        int length = 0;
-        while (preHead != null) {
+        while (preHead.next != null) {
+            System.out.println(preHead.next);
             preHead = preHead.next;
-            length++;
+
         }
-        if (length == 1) return null;
-        ListNode delete = head;
-        int middle = length / 2 - 1;
-        while (middle > 0) {
-            delete = delete.next;
-            middle--;
-        }
-        delete.next = delete.next.next;
-        return head;
+        /*System.out.println("even");
+        while (preEven.next != null) {
+            System.out.println(preEven.next);
+            preEven = preEven.next;
+        }*/
+        return null;
     }
 
     // Definition for singly-linked list.
