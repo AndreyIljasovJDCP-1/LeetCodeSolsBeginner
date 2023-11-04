@@ -25,7 +25,7 @@ public class ListNodeOddEven {
     public static ListNode oddEvenList(ListNode head) {
         ListNode preHead = new ListNode(-1);
         preHead.next=head;
-        if (head.next == null || head.next.next == null) return head;
+        if (head == null || head.next == null || head.next.next == null) return head;
         ListNode odd = new ListNode(-1);
         ListNode even = new ListNode(-1);
         ListNode preOdd = odd;
