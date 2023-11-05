@@ -7,9 +7,7 @@ import java.util.Queue;
 import java.util.stream.Collectors;
 
 /**
- * @link <a href="https://leetcode.com/problems/
- * total-cost-to-hire-k-workers/description/
- * ?envType=study-plan-v2&envId=leetcode-75">
+ * @link <a href="https://leetcode.com/problems/total-cost-to-hire-k-workers/description/?envType=study-plan-v2&envId=leetcode-75">
  * 2462. Total Cost to Hire K Workers</a>
  */
 public class TotalCostHireWorkers {
