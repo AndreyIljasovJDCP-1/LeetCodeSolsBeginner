@@ -1,7 +1,6 @@
 package leetcode.medium;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @link <a href="https://leetcode.com/problems/equal-row-and-column-pairs/?envType=study-plan-v2&envId=leetcode-75">
@@ -11,31 +10,53 @@ import java.util.List;
 public class MatrixEqualRowColPairs {
 
     public static void main(String[] args) {
-        equalPairs(new int[][]{
-                {3, 1, 2, 2},
-                {1, 4, 4, 5},
-                {2, 4, 2, 2},
-                {2, 4, 2, 2}
-        });
+        System.out.println(equalPairs(new int[][]{
+                {3, 3, 3, 6, 18, 3, 3, 3, 3, 3},
+                {3, 3, 3, 3, 1, 3, 3, 3, 3, 3},
+                {3, 3, 3, 3, 1, 3, 3, 3, 3, 3},
+                {3, 3, 3, 3, 1, 3, 3, 3, 3, 3},
+                {1, 1, 1, 11, 19, 1, 1, 1, 1, 1},
+                {3, 3, 3, 18, 19, 3, 3, 3, 3, 3},
+                {3, 3, 3, 3, 1, 3, 3, 3, 3, 3},
+                {3, 3, 3, 3, 1, 3, 3, 3, 3, 3},
+                {3, 3, 3, 1, 6, 3, 3, 3, 3, 3},
+                {3, 3, 3, 3, 1, 3, 3, 3, 3, 3}
+        }));
     }
 
-    public static int equalPairs(int[][] grid) {
-
-        List<String> rows = new ArrayList<>();
-        List<String> cols = new ArrayList<>();
-        String row;
-        String col;
+    public int equalPairsHash(int[][] grid) {
+        int base = 100003;
+        int mod = 1000000007;
+        Map<Integer, Integer> counts = new HashMap<>();
+        int len = grid.length;
         for (int i = 0; i < grid.length; i++) {
-            row = "";
-            col = "";
-            for (int j = 0; j < grid.length; j++) {
-                col += grid[j][i];
-                row += grid[i][j];
-            }
-            rows.add(row);
-            cols.add(col);
+            int hash = 0;
+            for (int j = 0; j < len; j++) hash = (hash * base + grid[i][j]) % mod;
+            int c = counts.getOrDefault(hash, 0) + 1;
+            counts.put(hash, c);
         }
-
-        return cols.size();
+        int ans = 0;
+        for ( int i = 0; i < len; i++ ) {
+            int hash = 0;
+            for ( int j = 0; j < len; j++ ) hash = ( hash * base + grid[j][i] ) % mod;
+            int c = counts.getOrDefault(hash, 0);
+            ans += c;
+        }
+        return ans;
+    }
+    public static int equalPairs(int[][] grid) {
+        int pairs = 0;
+        int[][] transposed = new int[grid.length][grid.length];
+        for (int j = 0; j < grid.length; j++) {
+            for (int i = 0; i < grid.length; i++) {
+                transposed[i][j] = grid[j][i];
+            }
+        }
+        for (int[] rows : grid) {
+            for (int[] cols : transposed) {
+                if (Arrays.equals(rows, cols)) pairs++;
+            }
+        }
+        return pairs;
     }
 }
