@@ -8,7 +8,7 @@ import java.util.List;
  * @link <a href="https://leetcode.com/problems/combination-sum-iii/description/?envType=study-plan-v2&envId=leetcode-75">
  *     216. Combination Sum III</a>
  */
-public class CombinationSum {
+public class CombinationSumIII {
 
     public static void main(String[] args) {
         System.out.println(combinationSumOpt(4, 20));
