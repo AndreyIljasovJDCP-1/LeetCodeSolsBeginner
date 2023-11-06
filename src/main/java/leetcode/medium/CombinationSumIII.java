@@ -35,10 +35,8 @@ public class CombinationSumIII {
             return;
         }
         for (int i = start; i < 10; i++) {
-            sum += i;
             variant.add(i);
-            variantsOpt(i + 1, size + 1, sum, variant, n, k, result);
-            sum -= i;
+            variantsOpt(i + 1, size + 1, sum + i, variant, n, k, result);
             variant.remove(variant.size() - 1);
         }
     }
