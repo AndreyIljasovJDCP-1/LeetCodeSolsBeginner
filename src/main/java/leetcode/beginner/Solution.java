@@ -284,41 +284,7 @@ public class Solution {
     return false;
   }
 
-  public static int removeDuplicates(int[] nums) {
-    var uniqueArr = Arrays.stream(nums).distinct().toArray();
-    System.out.println(uniqueArr.length);
-    var k = uniqueArr.length;
-    System.arraycopy(uniqueArr, 0, nums, 0, uniqueArr.length);
-    System.out.println(Arrays.toString(nums));
-    return k;
-  }
 
-  public static int removeDuplicates2(int[] nums) {
-    int duplicates = 0;
-    for (int i = 0; i < nums.length - 1; i++) {
-      while ((i + 1 + duplicates) < nums.length && nums[i] == nums[i + 1 + duplicates]) {
-        duplicates++;
-      }
-      if (duplicates != 0) {
-        if ((i + 1 + duplicates) < nums.length) {
-          nums[i + 1] = nums[i + 1 + duplicates];
-        } else {
-          break;
-        }
-      }
-    }
-    System.out.println(Arrays.toString(nums));
-    return nums.length - duplicates;
-  }
-
-  public static int removeDuplicates3(int[] nums) {
-    int duplicates = 0;
-    for (int i = 1; i < nums.length; i++) {
-      if (nums[duplicates] != nums[i]) nums[++duplicates] = nums[i];
-    }
-    System.out.println(Arrays.toString(nums));
-    return duplicates + 1;
-  }
 
   public static int[] twoSum(int[] nums, int target) {
 
