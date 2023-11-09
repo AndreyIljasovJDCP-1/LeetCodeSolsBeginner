@@ -1,25 +1,23 @@
 package leetcode.medium;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * <a href="https://leetcode.com/problems/3sum/description/">15. 3Sum</a>
  * <a href="https://leetcode.com/problems/3sum-closest/description/">16. 3Sum Closest</a>
  */
-public class ThreeSumClosest16 {
+public class ThreeSumClosest15_16 {
 
     public static void main(String[] args) {
-        System.out.println(threeSum(new int[]{-1, 0, 1, 2, -1, -4}));
+        System.out.println(threeSum(new int[]{0, 0, 0, 0}));
     }
 
     public static List<List<Integer>> threeSum(int[] nums) {
         Arrays.sort(nums);
         System.out.println(Arrays.toString(nums));
         List<List<Integer>> result = new ArrayList<>();
-
         for (int i = 0; i < nums.length - 2; i++) {
+            if(i>0 && nums[i]==nums[i-1]) continue;
             System.out.println("index: i: " + i);
             int left = i + 1;
             int right = nums.length - 1;
@@ -33,15 +31,13 @@ public class ThreeSumClosest16 {
                 } else if (sum > 0) {
                     right--;
                 } else {
-                    List<Integer> triplet = new ArrayList<>();
                     System.out.println("Exact match");
                     System.out.println(sum + "  = " + nums[i] + "  " + nums[left] + "  " + nums[right]);
-                    triplet.add(nums[i]);
-                    triplet.add(nums[left]);
-                    triplet.add(nums[right]);
-                    System.out.println(triplet);
-                    result.add(triplet);
-                    break;
+                    result.add(Arrays.asList(nums[i], nums[left], nums[right]));
+                    left++;
+                    right--;
+                    while (left < right && nums[left] == nums[left - 1]) left++;
+                    while (left < right && nums[right] == nums[right + 1]) right--;
                 }
             }
         }
@@ -51,7 +47,7 @@ public class ThreeSumClosest16 {
     public static int threeSumClosest(int[] nums, int target) {
         Arrays.sort(nums);
         System.out.println(Arrays.toString(nums));
-        int sum = 0;
+        int sum;
         int minSum = Integer.MAX_VALUE;
         int minDiff = Integer.MAX_VALUE;
         for (int i = 0; i < nums.length - 2; i++) {
