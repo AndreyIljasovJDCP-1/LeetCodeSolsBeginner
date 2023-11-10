@@ -31,7 +31,7 @@ public class ZigZagConversion_6 {
             int index = i;
 
             while (index < len) {
-                sb.setCharAt(counter++, s.charAt(index));
+                sb.setCharAt((enc ? counter++ : index), s.charAt(enc ? index : counter++));
                 index += next;
                 next = (next == step ? step : step - next);
             }
