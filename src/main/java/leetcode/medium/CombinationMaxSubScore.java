@@ -9,7 +9,7 @@ import java.util.Queue;
  * <a href="https://leetcode.com/problems/maximum-subsequence-score/description/">
  *     2542. Maximum Subsequence Score</a>
  */
-public class CombinationMaxSubScore_2542 {
+public class CombinationMaxSubScore {
     public static long MAX_SCORE = Integer.MIN_VALUE;
 
     public static void main(String[] args) {
@@ -51,37 +51,6 @@ public class CombinationMaxSubScore_2542 {
             }
         }
         return maxScore;
-    }
-
-    public static long maxScoreQ(int[] nums1, int[] nums2, int k) {
-
-
-        Queue<int[]> pairsMin = new PriorityQueue<>((o1, o2) -> o2[1] == o1[1] ? o2[0] - o1[0] : o2[1] - o1[1]);
-        Queue<int[]> pairsSum = new PriorityQueue<>((o1, o2) -> o2[0] == o1[0] ? o2[1] - o1[1] : o2[0] - o1[0]);
-        for (int i = 0; i < nums1.length; i++) {
-            int sum = nums1[i];
-            int min = nums2[i];
-            pairsMin.add(new int[]{sum, min});
-            pairsSum.add(new int[]{sum, min});
-        }
-        long min1 = 0;
-        long sum1 = 0;
-        long min2 = Integer.MAX_VALUE;
-        long sum2 = 0;
-        while (pairsMin.size() > nums1.length - k && !pairsMin.isEmpty() && !pairsSum.isEmpty()) {
-            int[] pair1 = pairsMin.poll();
-            int[] pair2 = pairsSum.poll();
-            min1 = pair1[1];
-            sum1 += pair1[0];
-            min2 = Math.min(pair2[1], min2);
-            sum2 += pair2[0];
-        }
-        System.out.println(min1);
-        System.out.println(sum1);
-        System.out.println(min2);
-        System.out.println(sum2);
-
-        return Math.max((sum1 * min1), (sum2 * min2));
     }
 
     public static long maxScoreLast(int[] nums1, int[] nums2, int k) {
