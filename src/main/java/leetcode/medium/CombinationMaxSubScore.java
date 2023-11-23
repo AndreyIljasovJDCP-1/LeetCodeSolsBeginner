@@ -12,22 +12,7 @@ import java.util.Queue;
 public class CombinationMaxSubScore {
     public static long MAX_SCORE = Integer.MIN_VALUE;
 
-    public static void main(String[] args) {
-        System.out.println(maxScoreMatrixQueuePairs(
-                new int[]{44, 10, 25, 0, 25, 49, 0},
-                new int[]{18, 39, 15, 31, 43, 20, 45}, 6));
-        System.out.println(maxScoreMatrixQueuePairs(
-                new int[]{2, 1, 14, 12},
-                new int[]{11, 7, 13, 6}, 3));
-        System.out.println(maxScoreMatrixQueuePairs(
-                new int[]{22, 5, 25, 15, 28, 1},
-                new int[]{22, 30, 25, 25, 9, 18}, 3));
-        System.out.println(maxScoreMatrixQueuePairs(
-                new int[]{1, 3, 3, 2},
-                new int[]{2, 1, 3, 4}, 3));
-    }
-
-    public static long maxScoreMatrixQueuePairs(int[] nums1, int[] nums2, int k) {
+    public long maxScoreMatrixQueuePairs(int[] nums1, int[] nums2, int k) {
         if (nums1.length == 0) return 0;
         long sum = 0;
         long maxScore = 0;
@@ -185,7 +170,6 @@ public class CombinationMaxSubScore {
         System.out.println(sum + " sum start");
         System.out.println(min + " min start");
         nextSum = sum;
-        nextMin = Integer.MAX_VALUE;
         maxScore = Math.max(maxScore, min * sum);
         System.out.println(maxScore + " maxScore start");
         for (int i = 0; i < nums1.length - k; i++) {
